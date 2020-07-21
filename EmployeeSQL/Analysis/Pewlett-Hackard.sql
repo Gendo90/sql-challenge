@@ -1,4 +1,4 @@
-﻿-- Exported from QuickDBD: https://www.quickdatabasediagrams.com/
+-- Exported from QuickDBD: https://www.quickdatabasediagrams.com/
 -- NOTE! If you have used non-SQL datatypes in your design, you will have to change these here.
 
 
@@ -79,4 +79,18 @@ REFERENCES "employees" ("emp_no");
 
 ALTER TABLE "titles" ADD CONSTRAINT "fk_titles_emp_no" FOREIGN KEY("emp_no")
 REFERENCES "employees" ("emp_no");
+
+-- 1) Employee details: employee number, last name, first name, gender, and salary.
+SELECT employees.emp_no, last_name, first_name, gender, salary
+FROM employees
+INNER JOIN salaries
+ON employees.emp_no = salaries.emp_no
+
+-- 2) Employees who were hired in 1986
+SELECT first_name, last_name
+FROM employees
+WHERE extract(year FROM hire_date) = 1986;
+
+-- 3) Manager information: department number, department name, the manager’s employee number, 
+-- last name, first name, and start and end employment dates.
 
