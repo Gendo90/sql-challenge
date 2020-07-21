@@ -93,4 +93,22 @@ WHERE extract(year FROM hire_date) = 1986;
 
 -- 3) Manager information: department number, department name, the manager’s employee number, 
 -- last name, first name, and start and end employment dates.
+-- NOTE: The hire dates may be earlier than the employment end date of the previous 
+-- department manager, because the employee was hired earlier and promoted to dept. manager
+-- Also, the to_date value of 9999-01-01 means to-date or currently
 
+SELECT dept_name, dept_manager.dept_no, employees.emp_no, last_name, first_name, hire_date, to_date
+FROM dept_manager
+INNER JOIN employees
+ON dept_manager.emp_no = employees.emp_no
+INNER JOIN departments
+ON dept_manager.dept_no = departments.dept_no
+
+-- 4) Employees with departments: employee number, last name, first name, and department name.
+
+SELECT employees.emp_no, last_name, first_name, dept_name
+FROM employees
+INNER JOIN dept_emp
+ON employees.emp_no = dept_emp.emp_no
+INNER JOIN departments
+ON dept_emp.dept_no = departments.dept_no
