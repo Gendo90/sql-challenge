@@ -112,3 +112,25 @@ INNER JOIN dept_emp
 ON employees.emp_no = dept_emp.emp_no
 INNER JOIN departments
 ON dept_emp.dept_no = departments.dept_no
+
+-- 5) List employees with the first name "Hercules" whose last name starts with "B"
+
+SELECT first_name, last_name 
+FROM employees
+where first_name = 'Hercules' AND last_name LIKE 'B%';
+
+-- 6) List all employees in the Sales department: 
+-- employee number, last name, first name, department name
+-- This will list "CURRENT" employees in sales - given a "to_date"
+-- of "9999-01-01" by selecting the year 9999 (which means current)
+-- NOTE: You can find all the employees who were ever in sales by removing
+-- the second condition to the "WHERE" statement (after the "AND") if necessary
+
+SELECT employees.emp_no, last_name, first_name, dept_name
+FROM employees
+INNER JOIN dept_emp
+ON employees.emp_no = dept_emp.emp_no
+INNER JOIN departments
+ON dept_emp.dept_no = departments.dept_no
+WHERE dept_name = 'Sales' AND extract(year FROM dept_emp.to_date) = 9999;
+
