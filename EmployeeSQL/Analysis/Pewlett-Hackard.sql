@@ -134,3 +134,24 @@ INNER JOIN departments
 ON dept_emp.dept_no = departments.dept_no
 WHERE dept_name = 'Sales' AND extract(year FROM dept_emp.to_date) = 9999;
 
+-- 7) List all employees in the Sales and Development departments, include: 
+-- employee number, last name, first name, and department name
+-- NOTE: This query will return all 'current' employees in those departments
+-- by selecting only those employees with the 'to_date' (end employment date)
+-- in the year 9999
+
+SELECT employees.emp_no, last_name, first_name, dept_name
+FROM employees
+INNER JOIN dept_emp
+ON employees.emp_no = dept_emp.emp_no
+INNER JOIN departments
+ON dept_emp.dept_no = departments.dept_no
+WHERE (dept_name = 'Sales' OR dept_name = 'Development') 
+AND extract(year FROM dept_emp.to_date) = 9999;
+
+-- 8) List frequency count of employee last names in descending order
+
+SELECT last_name, COUNT(last_name)
+FROM employees
+GROUP BY last_name
+ORDER BY COUNT(last_name) DESC;
